@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Exhibitions</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<style>
+		.jumbotron {
+
+			margin-top: 0px;
+			text-align: center;
+			background-color: white;
+			background-image: url("/jumbotron_bg.jpg");
+			background-position: center;
+			/* Center the image */
+			background-repeat: no-repeat;
+			/* Do not repeat the image */
+			background-size: cover;
+			height: 500px;
+			filter: grayscale(100%);
+		}
+
+		h1 {
+			width: 100%;
+			text-align: center;
+			border-bottom: 2px solid #000;
+			line-height: 0.1em;
+			margin: 50px 0 20px;
+		}
+
+		h1 span {
+			background: white;
+			padding: 0 10px;
+			font-size: 60px;
+			font-family: "Times New Roman", Times, serif;
+		}
+
+		.row {
+			column-count: 2;
+			margin: 50px;
+			font-family: "Montserrat", sans-serif;
+		}
+
+		h2 {
+			text-align: center;
+			font-weight: bold;
+		}
+
+		p {
+			font-size: 25px;
+		}
+
+		img {
+			border: 5px solid black;
+			filter: grayscale(100%);
+			border-radius: 12px;
+		}
+
+		.container {
+			border: 5px solid black;
+			border-radius: 12px;
+			width: 90%;
+			height: 850px;
+			background-image: url(/ex.jpg);
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+
+		.container:hover img {
+			filter: grayscale(0%);
+		}
+
+		.container:hover {
+			box-shadow: 10px 10px 5px #aaaaaa;
+			font-weight: bold;
+		}
+
+		body {
+			color: black;
+		}
+
+		footer {
+			text-align: center;
+			padding: 3px;
+			color: black;
+			height: 120px;
+			margin-bottom: 0px;
+			font-size: 25px;
+		}
+
+		footer div {
+			margin-top: 20px;
+		}
+	</style>
+
+</head>
+
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top"
+		style="font-weight: bold; font-size: 23px; font-family: Georgia, 'Times New Roman', Times, serif;">
+		<div>
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#my-bar"
+					aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a href='/nav' class="navbar-brand" style="font-size: 28px;">Gallery</a>
+			</div>
+			<div class="collapse navbar-collapse" id='my-bar'>
+				<ul class="nav navbar-nav">
+					<li><a href='/exhibition'>Exhibitions</a> </li>
+					<li><a href='/about'>About</a> </li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right" style="margin-right: 10px;">
+					<li><a href='#' id='login'>Login</a></li>
+					<li><a href='#' id='register'>Register</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class='jumbotron'></div>
+
+	<h1><span>Exhibitions</span></h1>
+	<br>
+	<div class="row">
+		<div class="container">
+			<h2>Academy of Fine Arts, Kolkata</h2>
+			<img height=50% width=100% src="/e1.jpg">
+			<p>
+				Established in 1933, the Academy of Fine Arts in Kolkata is one of the most significant art galleries in
+				India. Various famous paintings by eminent Indian and foreign artists are displayed here. Some of the
+				famous paintings include 'Girl with a pitcher' and 'A Winter's Evening' by Rabindra Nath Tagore. Works
+				of artists like Jamini Roy, Nandalal Bose, M.F.Hussain, etc, are also showcased at the academy.
+			</p>
+		</div>
+		<br>
+		<div class="container">
+			<h2>The Government Museum and Art Gallery, Chandigarh</h2>
+			<img height=50% width=100% src="/e2.jpg">
+			<p>
+				Sculptures are also on display apart from paintings at this prominent museum located in Chandigarh.
+				Started for the public in 1968, the museum features different sections for sculpture, architecture and
+				art paintings. The best sections of the museum consist of sections for Indian miniature paintings,
+				contemporary art, portraits, etc.
+			</p>
+		</div>
+		<br>
+		<div class="container">
+			<h2>Government Museum, Chennai</h2>
+			<img height=50% width=100% src="/e3.jpg">
+			<p>
+				Also known as the Madras Museum, the Government Museum in Chennai is the second oldest museum and art
+				gallery in India. Established in the year 1851, it witnesses a heavy footfall of visitors each year. The
+				National Art Gallery, which forms a part of the museum, has paintings of legendary artists like Raja
+				Ravi Varma on display. Traditional paintings of Tanjore, Rajput and Mughal era along with paintings of
+				the contemporary period can be found here.
+			</p>
+		</div>
+		<br>
+		<div class="container">
+			<h2>Gallery Kolkata </h2>
+			<img height=50% width=100% src="/e4.jpg">
+			<p>
+				Gallery Kolkata has been created space since 2004 working with luminaries, mid-career and an imaging
+				artist. With the support, co-operation and blessings of many of the artists we worked with, we stand
+				tall and steady in 2018. With the burgeoning of technological advancement, it becomes essential to use
+				the same to our advantage. Keeping this in mind Gallery Kolkata has built a world-class website.
+			</p>
+		</div>
+		<br>
+		<div class="container">
+			<h2>Jehangir Art Gallery, Mumbai</h2>
+			<img height=50% width=100% src="/e5.jpg">
+			<p>
+				Established in 1952, Jehangir Art Gallery in Mumbai is owned by a private organization and has paintings
+				of almost all famous Indian artists from Jamini Roy to Arpita Singh. Artists from India and abroad line
+				up to get their work exhibited at this gallery. It is a must visit for art lovers as you will get to see
+				some of the finest art creations of the world at this gallery.
+			</p>
+		</div>
+		<br>
+		<div class="container">
+			<h2>National Gallery of Modern Art, Bangalore</h2>
+			<img height=50% width=100% src="/e6.jpg">
+			<p>
+				One of the newer art galleries in India, the National Gallery of Modern Art was inaugurated in 2009 in
+				Bangalore. Currently, the art gallery houses more than 500 paintings from both traditional and modern
+				genres. Paintings on display are works of honourable artists like Raja Ravi Varma, Amrita Sher-Gil,
+				Jamini Roy, etc. The paintings are sorted and displayed according to time periods, artists and school of
+				art.
+			</p>
+		</div>
+		<br>
+		<div class="container">
+			<h2>National Gallery of Modern Art, New Delhi</h2>
+			<img height=50% width=100% src="/e7.jpg">
+			<p>
+				National Gallery of Modern Art in Delhi is an initiative by the government of India. Established in
+				1954, the gallery features a collection of over 14,000 paintings by artists from India and abroad.
+				Paintings in this wide assortment include works of Raja Ravi Varma, Tagore brothers, Jamini Roy etc. It
+				is one of the finest Art Galleries in India.
+			</p>
+		</div>
+		<br>
+		<div class="container">
+			<h2> Aakriti Art Gallery</h2>
+			<img height=50% width=100% src="/e8.jpeg">
+			<p>
+				Aakriti Art gallery has evolved as one of the prominent modern Art Galleries in India. The gallery
+				operates from two centres, one in Kolkata and one in New Delhi. Traditional paintings, sculptures,
+				printmaking, video art and installations are on display here. Art lovers have the option to buy modern
+				and contemporary art paintings from an online art shop too. The gallery has reinforced the Gen-next
+				exhibitions which deliver modern art and reaches to the young crowd of India.
+			</p>
+		</div>
+		<br>
+	</div>
+
+	<footer>
+		<div>
+			<p>
+				<strong>The Art.Gallery </strong>&#169; Copyright 2020
+			</p>
+			<p>
+				A website to display Art.
+			</p>
+		</div>
+	</footer>
+
+	<script src="https://code.jquery.com/jquery-2.2.4.js"
+		integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+	<script src='/head.js'></script>
+
+</body>
+
+</html>
