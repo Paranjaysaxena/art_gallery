@@ -22,11 +22,27 @@ type user struct {
 	Last     string
 }
 
-type paint_detail struct {
+type Paint_detail struct {
 	Filename    string
 	Username    string
 	Category    string
 	Description string
+}
+
+type Profile struct {
+	ProfilePic string
+	Username   string
+	Bio        string
+}
+
+type Idk struct {
+	Prof  Profile
+	Paint []Paint_detail
+}
+
+type Dis struct {
+	Paint []Paint_detail
+	Name  string
 }
 
 var tpl *template.Template
@@ -62,8 +78,9 @@ func main() {
 	http.HandleFunc("/logout", logout)
 	http.HandleFunc("/nav", nav)
 	http.HandleFunc("/upload", upload)
-	http.HandleFunc("/about",about)
-	http.HandleFunc("/exhibition",exhibition)
+	http.HandleFunc("/profileUpload", profileUpload)
+	http.HandleFunc("/about", about)
+	http.HandleFunc("/exhibition", exhibition)
 	http.HandleFunc("/profile", profile)
 	http.Handle("/favicon.ico", http.NotFoundHandler())
 	http.ListenAndServe(":8000", nil)
@@ -73,7 +90,7 @@ func main() {
 func display(w http.ResponseWriter, req *http.Request) {
 	res := strings.Split(req.URL.Path, "/")
 	category := res[len(res)-1]
-	cur := make([]paint_detail, 0)
+	cur := make([]Paint_detail, 0)
 
 	rows, err := db.Query("SELECT * FROM paintings where category= $1", category)
 
@@ -83,7 +100,7 @@ func display(w http.ResponseWriter, req *http.Request) {
 	defer rows.Close()
 
 	for rows.Next() {
-		tmp := paint_detail{}
+		tmp := Paint_detail{}
 		err = rows.Scan(&tmp.Username, &tmp.Category, &tmp.Description, &tmp.Filename)
 		cur = append(cur, tmp)
 	}
@@ -92,8 +109,37 @@ func display(w http.ResponseWriter, req *http.Request) {
 		cur[i].Filename = strings.TrimSpace(cur[i].Filename)
 		cur[i].Filename = "/" + cur[i].Filename
 	}
+	fin := Dis{
+		cur,
+		category,
+	}
+	tpl.ExecuteTemplate(w, "category.html", fin)
+}
 
-	tpl.ExecuteTemplate(w, "category.html", cur)
+func profileUpload(w http.ResponseWriter, req *http.Request) {
+	src, hdr, err := req.FormFile("profile_pic")
+	if err != nil {
+		panic(err)
+	}
+	defer src.Close()
+
+	fileName := hdr.Filename
+	dst, err := os.Create("img/" + fileName)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+	defer dst.Close()
+
+	io.Copy(dst, src)
+	un := getUser(w, req)
+	bio := req.FormValue("bio")
+	_, err = db.Exec("UPDATE user_details SET profile_pic = $1,bio = $3 where user_id = $2", fileName, un, bio)
+	if err != nil {
+		fmt.Printf("gandu\n")
+	}
+	http.Redirect(w, req, "/profile", http.StatusSeeOther)
+
 }
 
 func upload(w http.ResponseWriter, req *http.Request) {
@@ -161,7 +207,7 @@ func upload(w http.ResponseWriter, req *http.Request) {
 }
 
 func profile(w http.ResponseWriter, req *http.Request) {
-	cur := make([]paint_detail, 0)
+	cur := make([]Paint_detail, 0)
 	un := getUser(w, req)
 	fmt.Println(" here" + un)
 	rows, err := db.Query("SELECT * FROM paintings where user_id= $1", un)
@@ -172,7 +218,7 @@ func profile(w http.ResponseWriter, req *http.Request) {
 	defer rows.Close()
 
 	for rows.Next() {
-		tmp := paint_detail{}
+		tmp := Paint_detail{}
 		err = rows.Scan(&tmp.Username, &tmp.Category, &tmp.Description, &tmp.Filename)
 		cur = append(cur, tmp)
 	}
@@ -182,7 +228,23 @@ func profile(w http.ResponseWriter, req *http.Request) {
 		cur[i].Filename = "/" + cur[i].Filename
 	}
 
-	tpl.ExecuteTemplate(w, "profile.html", cur)
+	var tmp Profile
+	tmp.Username = getUser(w, req)
+	row := db.QueryRow("SELECT profile_pic,bio FROM user_details where user_id = $1", tmp.Username)
+	err = row.Scan(&tmp.ProfilePic, &tmp.Bio)
+	tmp.ProfilePic = strings.TrimSpace(tmp.ProfilePic)
+	tmp.ProfilePic = "/" + tmp.ProfilePic
+
+	var Topass Idk
+
+	Topass.Prof = tmp
+	Topass.Paint = cur
+
+	fmt.Println(" agdsfsd fdsa fsdfl asdjfk klasdjlf")
+	fmt.Println(Topass.Prof.Username)
+	fmt.Println(Topass.Prof.ProfilePic)
+
+	tpl.ExecuteTemplate(w, "profile.html", Topass)
 }
 
 func nav(w http.ResponseWriter, req *http.Request) {

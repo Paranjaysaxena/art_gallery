@@ -12,19 +12,23 @@
 
   <style>
     footer {
-    text-align: center;
-    padding: 3px;
-    color: black;
-    height: 120px;
-    font-size: 25px;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-  }
-
-  footer div {
-    margin-top: 20px;
-  }
+      text-align: center;
+      padding: 3px;
+      color: black;
+      height: 120px;
+      font-size: 25px;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+    
+    footer div {
+      margin-top: 20px;
+    }
+    
+    #gandu {
+      margin-top: 100px;
+    }
   </style>
 </head>
 
@@ -52,58 +56,136 @@
       </div>
     </div>
   </div>
-
-  <!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  <div id="gandu">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
   Launch demo modal
 </button>
 
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        </div>
-        <form name="login" enctype="multipart/form-data" action="http://localhost:8000/upload" method="post">
-          <div class="modal-body">
-            <input type="file" name="myFile">
-            <span>Category :</span> <input type="text" name="cat" placeholder="category"><br>
-            <span>Description :</span> <input type="text" name="des" placeholder="describe">
-            <!-- <center><input type="submit" value="upload"></center> -->
-            <!-- <center>Username:</center>
+          </div>
+          <form name="login" enctype="multipart/form-data" action="http://localhost:8000/upload" method="post">
+            <div class="modal-body">
+              <input type="file" name="myFile">
+              <span>Category :</span>
+              <select name="cat" placeholder="category">
+                <option value="acrylic">acrylic</option>
+                <option value="encaustic">encaustic</option>
+                <option value="gouache">gouache</option>
+                <option value="matte">matte</option>
+                <option value="oil">oil</option>
+                <option value="pastel">pastel</option>
+                <option value="spray">spray</option>
+                <option value="watercolor">watercolor</option>
+                <option value="fresco">fresco</option>
+              </select>
+              <!-- <input type="text" name="cat" placeholder="category"><br> -->
+              <span>Description :</span> <input type="text" name="des" placeholder="describe">
+              <!-- <center><input type="submit" value="upload"></center> -->
+              <!-- <center>Username:</center>
             <center><input name="username" size="14" /></center>
             <center>Password:</center>
             <center><input name="password" type="password" size="14" /></center>
             <center><input type="submit" name="submit" value="login" /></center> -->
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" value="upload">Save changes</button>
-          </div>
-        </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" value="upload">Save changes</button>
+            </div>
+          </form>
 
-      </div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="row">
-      {{range $key, $val := .}}
-      <div class='col-lg-4 col-sm-6'>
-        <div class='thumbnail'>
-          <img src="{{($val).Filename}}">
         </div>
-        <div class='describe'>{{($val).Category}}</div>
-        <div class='describe'>{{($val).Description}}</div>
       </div>
-      {{end}}
     </div>
-  </div>
-  <!-- <img src="/a.jpg "> -->
-  <!-- <div id="popupbox ">
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit">
+      Launch demo modal
+    </button>
+
+    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+          </div>
+          <form name="login" enctype="multipart/form-data" action="http://localhost:8000/profileUpload" method="post">
+            <div class="modal-body">
+              <input type="file" name="profile_pic">
+              <!-- <span>Category :</span>
+              <select name="cat" placeholder="category">
+                <option value="acrylic">acrylic</option>
+                <option value="encaustic">encaustic</option>
+                <option value="gouache">gouache</option>
+                <option value="matte">matte</option>
+                <option value="oil">oil</option>
+                <option value="pastel">pastel</option>
+                <option value="spray">spray</option>
+                <option value="watercolor">watercolor</option>
+                <option value="fresco">fresco</option>
+              </select> -->
+              <!-- <input type="text" name="cat" placeholder="category"><br> -->
+              <span>Bio :</span> <input type="text" name="bio" placeholder="bio_describe">
+              <!-- <center><input type="submit" value="upload"></center> -->
+              <!-- <center>Username:</center>
+            <center><input name="username" size="14" /></center>
+            <center>Password:</center>
+            <center><input name="password" type="password" size="14" /></center>
+            <center><input type="submit" name="submit" value="login" /></center> -->
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" value="profileUpload">Save changes</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container">
+      <div class="row">
+        <div class='col-lg-4 col-sm-6'>
+          <div class='thumbnail'>
+            <img src="{{.Prof.ProfilePic}}">
+          </div>
+          <p> asfdfasd;f sadfasdjlk jasdkfj asdkfjl as;ldjf ;la jsdfj ;j sfd;</p>
+          <div class='describe'>{{.Prof.Username}}</div>
+          <div class='describe'>{{.Prof.Bio}}</div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="container">
+      <div class="row">
+        {{range $key, $val := .Paint}}
+        <div class='col-lg-4 col-sm-6'>
+          <div class='thumbnail'>
+            <img src="{{($val).Filename}}">
+          </div>
+          <div class='describe'>{{($val).Category}}</div>
+          <div class='describe'>{{($val).Description}}</div>
+        </div>
+        {{end}}
+      </div>
+    </div>
+
+
+    <!-- <img src="/a.jpg "> -->
+    <!-- <div id="popupbox ">
     <div id="close_but ">
       <a href="javascript:login( 'hide'); ">X</a>
     </div>
@@ -112,18 +194,19 @@
       <span>Category :</span> <input type="text " placeholder="category "><br>
       <span>Description :</span> <input type="text " placeholder="describe ">
       <center><input type="submit " value="upload "></center> -->
-  <!-- <center>Username:</center>
+    <!-- <center>Username:</center>
       <center><input name="username " size="14 " /></center>
       <center>Password:</center>
       <center><input name="password " type="password " size="14 " /></center>
       <center><input type="submit " name="submit " value="login " /></center> -->
-  <!-- </form>
+    <!-- </form>
   </div>
   <p><a href="javascript:login( 'show'); ">login</a></p> -->
-  <!-- <form enctype="multipart/form-data " action="http://localhost:8000/upload " method="post ">
+    <!-- <form enctype="multipart/form-data " action="http://localhost:8000/upload " method="post ">
     <input type="file " name="myFile ">
     <input type="submit " value="upload ">
   </form> -->
+  </div>
   <footer>
     <div>
       <p>
