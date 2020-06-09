@@ -248,8 +248,9 @@ func profile(w http.ResponseWriter, req *http.Request) {
 }
 
 func nav(w http.ResponseWriter, req *http.Request) {
-	fmt.Println(req.URL)
-	tpl.ExecuteTemplate(w, "nav.html", nil)
+	// fmt.Println(req.URL)
+	idk := getUser(w, req)
+	tpl.ExecuteTemplate(w, "nav.html", idk)
 }
 
 func about(w http.ResponseWriter, req *http.Request) {
@@ -406,9 +407,13 @@ func getUser(w http.ResponseWriter, req *http.Request) string {
 	// get cookie
 	c, err := req.Cookie("session")
 	if err != nil {
-		panic(err)
+		// panic(err)
+		return "Login"
 	}
-	un := dbSessions[c.Value]
+	un, ok := dbSessions[c.Value]
+	if ok == false {
+		return "Login"
+	}
 	return un
 }
 
