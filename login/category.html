@@ -11,6 +11,25 @@
   <script src='/profile.js'></script>
 
   <style>
+    body{
+      text-align: center;
+    }
+
+    h1 {
+      width: 100%;
+      text-align: center;
+      border-bottom: 1px solid #000;
+      line-height: 0.1em;
+      margin: 10px 0 20px;
+    }
+    
+    h1 span {
+      background: #fff;
+      padding: 0 10px;
+      font-size: 60px;
+      font-family: "Times New Roman", Times, serif;
+      text-transform: capitalize;
+    }
     footer {
       text-align: center;
       padding: 3px;
@@ -24,6 +43,10 @@
     
     footer div {
       margin-top: 20px;
+    }
+
+    .container{
+      margin-top: 100px;
     }
   </style>
 </head>
@@ -52,8 +75,8 @@
       </div>
     </div>
   </nav>
-  <h1 style="margin-top: 100px;">{{.Name}}</h1>
   <div class="container">
+    <h1><span>{{.Name}}</span></h1>
     <div class="row">
       {{range $key, $val := .Paint}}
       <div class='col-lg-4 col-sm-6'>
@@ -66,29 +89,6 @@
       {{end}}
     </div>
   </div>
-  <!-- <img src="/a.jpg "> -->
-  <!-- <div id="popupbox ">
-    <div id="close_but ">
-      <a href="javascript:login( 'hide'); ">X</a>
-    </div>
-    <form name="login " enctype="multipart/form-data " action="http://localhost:8000/upload " method="post ">
-      <input type="file " name="myFile ">
-      <span>Category :</span> <input type="text " placeholder="category "><br>
-      <span>Description :</span> <input type="text " placeholder="describe ">
-      <center><input type="submit " value="upload "></center> -->
-  <!-- <center>Username:</center>
-      <center><input name="username " size="14 " /></center>
-      <center>Password:</center>
-      <center><input name="password " type="password " size="14 " /></center>
-      <center><input type="submit " name="submit " value="login " /></center> -->
-  <!-- </form>
-  </div>
-  <p><a href="javascript:login( 'show'); ">login</a></p> -->
-  <!-- <form enctype="multipart/form-data " action="http://localhost:8000/upload " method="post ">
-    <input type="file " name="myFile ">
-    <input type="submit " value="upload ">
-  </form> -->
-
   <footer>
     <div>
       <p>
