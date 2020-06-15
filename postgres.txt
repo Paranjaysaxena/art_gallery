@@ -1,0 +1,10 @@
+ALTER TABLE user_details DROP COLUMN profile_pic;
+
+ALTER TABLE user_details DROP COLUMN bio;
+
+CREATE TABLE profile(user_id TEXT,profile_pic TEXT, bio TEXT);
+
+ALTER TABLE paintings RENAME COLUMN description TO price;
+
+CREATE TABLE exhibition(host TEXT,date TEXT, address TEXT);
+

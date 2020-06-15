@@ -30,12 +30,12 @@
     #gandu {
       margin-top: 100px;
     }
-
-    #cnt1{
+    
+    #cnt1 {
       margin-left: 80px;
     }
-
-    #cnt1 img{
+    
+    #cnt1 img {
       border: 2px solid black;
       border-radius: 50%;
     }
@@ -43,31 +43,29 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-inverse navbar-fixed-top"
-  style="font-weight: bold; font-size: 23px; font-family: Georgia, 'Times New Roman', Times, serif;">
-  <div>
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#my-bar"
-        aria-expanded="false">
+  <nav class="navbar navbar-inverse navbar-fixed-top" style="font-weight: bold; font-size: 23px; font-family: Georgia, 'Times New Roman', Times, serif;">
+    <div>
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#my-bar" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a href='/nav' class="navbar-brand" style="font-size: 28px;">Gallery</a>
+        <a href='/nav' class="navbar-brand" style="font-size: 28px;">Gallery</a>
+      </div>
+      <div class="collapse navbar-collapse" id='my-bar'>
+        <ul class="nav navbar-nav">
+          <li><a href='/exhibition'>Exhibitions</a> </li>
+          <li><a href='/about'>About</a> </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right" style="margin-right: 10px;">
+          <li><a href='#' id='login'>Hello</a></li>
+          <li><a href='#' id='register'>Register</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="collapse navbar-collapse" id='my-bar'>
-      <ul class="nav navbar-nav">
-        <li><a href='/exhibition'>Exhibitions</a> </li>
-        <li><a href='/about'>About</a> </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right" style="margin-right: 10px;">
-        <li><a href='#' id='login'>Login</a></li>
-        <li><a href='#' id='register'>Register</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+  </nav>
   <div id="gandu">
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
@@ -99,7 +97,7 @@
                 <option value="watercolor">watercolor</option>
                 <option value="fresco">fresco</option>
               </select>
-              <span>Description :</span> <input type="text" name="des" placeholder="describe">
+              <span>Price :</span> <input type="text" name="des" placeholder="describe">
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -140,7 +138,7 @@
     </div>
 
 
-    <div id = "cnt1">
+    <div id="cnt1">
       <div class="row">
         <div class='col-lg-4 col-sm-6'>
           <div>
@@ -148,6 +146,7 @@
           </div>
           <div class='describe' style="text-align: center;">{{.Prof.Username}}</div>
           <div class='describe'>{{.Prof.Bio}}</div>
+
         </div>
       </div>
     </div>
@@ -163,6 +162,64 @@
           </div>
           <div class='describe'>{{($val).Category}}</div>
           <div class='describe'>{{($val).Description}}</div>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#change_val">
+            edit image
+          </button>
+
+          <div class="modal fade" id="change_val" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <form name="login" enctype="multipart/form-data" id="{{($val).Filename}}" method="post" onload="idk()">
+                  <div class="modal-body">
+                    <!-- <input type="file" name="profile_pic"> -->
+                    <input type="hidden" value={{($val).Filename}} name="image-">
+                    <span>description :</span> <input type="text" name="{{($val).Filename}}" placeholder="describe">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" value="editPrice">Save changes</button>
+                  </div>
+                </form>
+
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#change_val">
+            delete
+          </button>
+
+          <div class="modal fade" id="change_val" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <form name="login" enctype="multipart/form-data" action="http://localhost:8000/editPrice/" method="post">
+                  <div class="modal-body">
+                    <!-- <input type="file" name="profile_pic"> -->
+                    <input type="hidden" value={{($val).Filename}} name="image">
+                    <!-- <span>description :</span> <input type="text" name="value" placeholder="describe"> -->
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" value="editPrice">Save changes</button>
+                  </div>
+                </form>
+
+              </div>
+            </div>
+          </div>
+
         </div>
         {{end}}
       </div>
@@ -179,13 +236,15 @@
       </p>
     </div>
   </footer>
+  <script>
+    function idk() {
+      alert(" working ")
+        // document.getElementById(s).action = "http://localhost:8000/editPrice/";
+    }
+  </script>
 
-
-  <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <script src='/head.js'></script>
 
 </body>

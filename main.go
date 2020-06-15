@@ -83,8 +83,24 @@ func main() {
 	http.HandleFunc("/exhibition", exhibition)
 	http.HandleFunc("/profile", profile)
 	http.Handle("/favicon.ico", http.NotFoundHandler())
+	http.HandleFunc("/editPrice/", editPrice)
 	http.ListenAndServe(":8000", nil)
 
+}
+
+func editPrice(w http.ResponseWriter, req *http.Request) {
+	res := strings.Split(req.URL.Path, "/")
+	name := res[len(res)-1]
+	to_place := "/" + name
+	new := req.FormValue(to_place)
+	un := getUser(w, req)
+	fmt.Printf("%v %v   what the fuck is this\n", new, name)
+	_, err := db.Exec("UPDATE paintings SET price = $1 where user_id = $2 and filename = $3", new, un, name)
+	if err != nil {
+		panic(err)
+	}
+
+	http.Redirect(w, req, "/profile", http.StatusSeeOther)
 }
 
 func display(w http.ResponseWriter, req *http.Request) {
@@ -134,10 +150,13 @@ func profileUpload(w http.ResponseWriter, req *http.Request) {
 	io.Copy(dst, src)
 	un := getUser(w, req)
 	bio := req.FormValue("bio")
-	_, err = db.Exec("UPDATE user_details SET profile_pic = $1,bio = $3 where user_id = $2", fileName, un, bio)
+	_, err = db.Exec("UPDATE profile SET profile_pic = $1,bio = $3 where user_id = $2", fileName, un, bio)
 	if err != nil {
 		fmt.Printf("gandu\n")
 	}
+	fmt.Println(bio)
+	fmt.Println(fileName)
+	fmt.Println("i don't know y this is not uploading")
 	http.Redirect(w, req, "/profile", http.StatusSeeOther)
 
 }
@@ -195,7 +214,7 @@ func upload(w http.ResponseWriter, req *http.Request) {
 	fmt.Println(cat)
 	fmt.Println(des)
 	fmt.Println(un)
-	_, err = db.Exec("INSERT INTO paintings(user_id,category,description,filename) VALUES ($1,$2,$3,$4)", un, cat, des, fileName)
+	_, err = db.Exec("INSERT INTO paintings(user_id,category,price,filename) VALUES ($1,$2,$3,$4)", un, cat, des, fileName)
 	if err != nil {
 		fmt.Printf("gandu\n")
 	}
@@ -210,7 +229,7 @@ func profile(w http.ResponseWriter, req *http.Request) {
 	cur := make([]Paint_detail, 0)
 	un := getUser(w, req)
 	fmt.Println(" here" + un)
-	rows, err := db.Query("SELECT * FROM paintings where user_id= $1", un)
+	rows, err := db.Query("SELECT * FROM paintings where user_id= $1 ORDER BY filename", un)
 
 	if err != nil {
 		panic(err)
@@ -230,9 +249,12 @@ func profile(w http.ResponseWriter, req *http.Request) {
 
 	var tmp Profile
 	tmp.Username = getUser(w, req)
-	row := db.QueryRow("SELECT profile_pic,bio FROM user_details where user_id = $1", tmp.Username)
+	row := db.QueryRow("SELECT profile_pic,bio FROM profile where user_id = $1", tmp.Username)
 	err = row.Scan(&tmp.ProfilePic, &tmp.Bio)
 	tmp.ProfilePic = strings.TrimSpace(tmp.ProfilePic)
+	if tmp.ProfilePic == "" || tmp.ProfilePic == "NULL" {
+		tmp.ProfilePic = "no_profile.png"
+	}
 	tmp.ProfilePic = "/" + tmp.ProfilePic
 
 	var Topass Idk
@@ -298,6 +320,13 @@ func signup(w http.ResponseWriter, req *http.Request) {
 		}
 
 		_, err = db.Exec("INSERT INTO user_details(user_id,fname,lname,email_id,password) VALUES ($1,$2,$3,$4,$5)", un, f, l, e, p)
+
+		if err != nil {
+			http.Error(w, http.StatusText(500), http.StatusInternalServerError)
+			return
+		}
+
+		_, err = db.Exec("INSERT INTO profile(user_id) VALUES ($1)", un)
 
 		if err != nil {
 			http.Error(w, http.StatusText(500), http.StatusInternalServerError)
