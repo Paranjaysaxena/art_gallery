@@ -43,6 +43,7 @@ type Idk struct {
 type Dis struct {
 	Paint []Paint_detail
 	Name  string
+	Prof  string
 }
 
 var tpl *template.Template
@@ -125,9 +126,12 @@ func display(w http.ResponseWriter, req *http.Request) {
 		cur[i].Filename = strings.TrimSpace(cur[i].Filename)
 		cur[i].Filename = "/" + cur[i].Filename
 	}
+	un := getUser(w, req)
+
 	fin := Dis{
 		cur,
 		category,
+		un,
 	}
 	tpl.ExecuteTemplate(w, "category.html", fin)
 }
